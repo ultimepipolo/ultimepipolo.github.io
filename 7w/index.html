@@ -1,10 +1,35 @@
 <html lang="en">
 <head>
-  <meta charset="utf-8">
+	<meta charset="utf-8">
 
-  <title>7 Wonders App Leaderboards</title>
-  <meta name="description" content="7 Wonders App Leaderboards">
-  <meta name="author" content="ultimepipolo">
+	<title>7 Wonders App Leaderboards</title>
+	<meta name="description" content="7 Wonders App Leaderboards">
+	<meta name="author" content="ultimepipolo">
+
+	<style type="text/css">
+		table {
+		  border-collapse: collapse;
+		  border: 2px solid rgb(200,200,200);
+		  letter-spacing: 1px;
+		  font-size: 0.8rem;
+		}
+		td, th {
+		  border: 1px solid rgb(190,190,190);
+		  padding: 10px 20px;
+		}
+		th {
+		  background-color: rgb(235,235,235);
+		}
+		td {
+		  text-align: center;
+		}
+		tr:nth-child(even) td {
+		  background-color: rgb(250,250,250);
+		}
+		tr:nth-child(odd) td {
+		  background-color: rgb(245,245,245);
+		}
+	</style>
 
 </head>
 
@@ -33,10 +58,11 @@ document.addEventListener("DOMContentLoaded", (event) => {
 	// it is available
 	fetchJSONFile('data/players.json', function(data){
 	    document.getElementById('player_count').innerHTML = data.length;
-	    let t_html = '<table><thead><tr><td>Username</td><td>Games played</td><td>Games won</td><td>Last update</td></tr></thead><tbody>';
+	    let t_html = '<table><thead><tr><td>#</td><td>Username</td><td>Games played</td><td>Games won</td><td>Last update</td></tr></thead><tbody>';
+	    data = data.sort(function(a, b) {return b[1] - a[1];});
 	    for (var i = data.length - 1; i >= 0; i--) {
 	    	let row = data[i];
-	    	t_html += '<tr><td>'+row[0]+'</td><td>'+row[1]+'</td><td>'+row[2]+'</td><td>'+(new Date(row[3])).toLocaleString()+'</td></tr>';
+	    	t_html += '<tr><td>'+i+'</td><td>'+row[0]+'</td><td>'+row[1]+'</td><td>'+row[2]+'</td><td>'+(new Date(row[3])).toLocaleString()+'</td></tr>';
 	    }
 	    t_html += '</tbody></table>';
 	    document.getElementById('main_table').innerHTML = t_html;
