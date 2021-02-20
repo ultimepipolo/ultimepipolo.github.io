@@ -1,0 +1,46 @@
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>7 Wonders App Leaderboards</title>
+  <meta name="description" content="7 Wonders App Leaderboards">
+  <meta name="author" content="ultimepipolo">
+
+</head>
+
+<body>
+	<h1>7 Wonders App Leaderboards</h1>
+	<h3>Last update 20/02/2021</h3>
+	<p>Number of players: <b><span id="player_count"></span></b></p>
+	<div id="main_table"></div>
+</body>
+<script type="text/javascript">
+function fetchJSONFile(path, callback) {
+    var httpRequest = new XMLHttpRequest();
+    httpRequest.onreadystatechange = function() {
+        if (httpRequest.readyState === 4) {
+            if (httpRequest.status === 200) {
+                var data = JSON.parse(httpRequest.responseText);
+                if (callback) callback(data);
+            }
+        }
+    };
+    httpRequest.open('GET', path);
+    httpRequest.send(); 
+}
+document.addEventListener("DOMContentLoaded", (event) => {
+	// this requests the file and executes a callback with the parsed result once
+	// it is available
+	fetchJSONFile('players.json', function(data){
+	    document.getElementById('player_count').innerHTML = data.length;
+	    let t_html = '<table><thead><tr><td>Username</td><td>Games played</td><td>Games won</td><td>Last update</td></tr></thead><tbody>';
+	    for (var i = data.length - 1; i >= 0; i--) {
+	    	let row = data[i];
+	    	t_html += '<tr><td>'+row[0]+'</td><td>'+row[1]+'</td><td>'+row[2]+'</td><td>'+(new Date(row[3])).toLocaleString()+'</td></tr>';
+	    }
+	    t_html += '</tbody></table>';
+	    document.getElementById('main_table').innerHTML = t_html;
+	});
+});
+</script>
+</html>
