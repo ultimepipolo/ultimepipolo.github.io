@@ -61,7 +61,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 	    data = data.sort(function(a, b) {return a[1] - b[1];});
 	    for (var i = data.length - 1; i >= 0; i--) {
 	    	let row = data[i];
-	    	t_html += '<tr><td>'+String(i+1)+'</td><td>'+row[0]+'</td><td>'+row[1]+'</td><td>'+row[2]+'</td><td>'+(new Date(row[3]*1000)).toLocaleString()+'</td></tr>';
+	    	t_html += '<tr><td>'+String(data.length - i)+'</td><td>'+row[0]+'</td><td>'+row[1]+'</td><td>'+row[2]+'</td><td>'+(new Date(row[3]*1000)).toLocaleString()+'</td></tr>';
 	    }
 	    t_html += '</tbody></table>';
 	    document.getElementById('main_table').innerHTML = t_html;
