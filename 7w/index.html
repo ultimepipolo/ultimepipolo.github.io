@@ -11,7 +11,6 @@
 		  border-collapse: collapse;
 		  border: 2px solid rgb(200,200,200);
 		  letter-spacing: 1px;
-		  font-size: 0.8rem;
 		}
 		td, th {
 		  border: 1px solid rgb(190,190,190);
@@ -36,8 +35,8 @@
 <body>
 	<h1>7 Wonders App Leaderboards</h1>
 	<h3>Last update 20/02/2021</h3>
-	<p>Number of players: <b><span id="player_count"></span></b></p>
-	<div id="main_table"></div>
+	<p>Number of players: <b><span id="player_count">LOADING</span></b></p>
+	<div id="main_table">LOADING</div>
 </body>
 <script type="text/javascript">
 function fetchJSONFile(path, callback) {
@@ -59,10 +58,10 @@ document.addEventListener("DOMContentLoaded", (event) => {
 	fetchJSONFile('data/players.json', function(data){
 	    document.getElementById('player_count').innerHTML = data.length;
 	    let t_html = '<table><thead><tr><td>#</td><td>Username</td><td>Games played</td><td>Games won</td><td>Last update</td></tr></thead><tbody>';
-	    data = data.sort(function(a, b) {return b[1] - a[1];});
+	    data = data.sort(function(a, b) {return a[1] - b[1];});
 	    for (var i = data.length - 1; i >= 0; i--) {
 	    	let row = data[i];
-	    	t_html += '<tr><td>'+i+'</td><td>'+row[0]+'</td><td>'+row[1]+'</td><td>'+row[2]+'</td><td>'+(new Date(row[3])).toLocaleString()+'</td></tr>';
+	    	t_html += '<tr><td>'+String(i+1)+'</td><td>'+row[0]+'</td><td>'+row[1]+'</td><td>'+row[2]+'</td><td>'+(new Date(row[3]*1000)).toLocaleString()+'</td></tr>';
 	    }
 	    t_html += '</tbody></table>';
 	    document.getElementById('main_table').innerHTML = t_html;
